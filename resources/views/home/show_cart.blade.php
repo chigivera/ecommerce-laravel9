@@ -47,11 +47,12 @@
             <tr>
                 <td>{{$cart->product_title}}</td>
                 <td>{{$cart->quantity}}</td>
-                <td>{{$cart->price}}</td>
+                <td>{{$cart->price}}.00</td>
                 <td><img src="/product/{{$cart->image}}" alt="Product Image" style="max-width: 50px;"></td>
                 <td>
                     <a href="#" class="btn btn-primary">Edit</a>
                     <a href="{{url('/remove_cart',$cart->id)}}" class="btn btn-danger">Delete</a>
+                    
                 </td>
             </tr>
             <?php 
@@ -62,9 +63,17 @@
             <tr>
                 <td></td>
                 <td>Total to Pay</td>
-                <td>{{$total_price}}</td>
+                <td>{{$total_price}}.00</td>
                 <td>       <a href="{{url('/order_details')}}" class="btn btn-warning">Cash on Delivery</a></td>
-                <td>       <a href="{{url('/order_details')}}" class="btn btn-primary">Card Payment</a></td>
+                <td>       <form action="{{ url('/paypal/payment') }}" method="post">
+    @csrf
+    <input type="hidden" name="total_price" value="{{ $total_price }}.00">
+    <input type="hidden" name="id" value="{{ $cart->id }}">
+    
+    <!-- Add more hidden fields for other information if needed -->
+    
+    <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+</form></td>
               
             </tr>
         </tbody>

@@ -16,7 +16,7 @@ use App\Http\Controllers\PaypalController;
 |
 */
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class,'index'])->name('index');
 
 Route::middleware([
     'auth:sanctum',
@@ -43,6 +43,6 @@ Route::middleware([
     Route::get('/show_cart', [HomeController::class,'show_cart']);
     Route::get('/remove_cart/{id}', [HomeController::class,'remove_cart']);
     Route::get('/order_details', [HomeController::class,'order_details']);
-    Route::post('/paypal', [PaypalController::class,'paypal']);
-    Route::get('/paypal/success', [PaypalController::class,'paypal_success'])->name("paypal_success");
-    Route::get('/paypal/cancel', [PaypalController::class,'paypal_cancel'])->name("paypal_cancel");
+    Route::post('/paypal/payment', [PaypalController::class,'payment'])->name("paypal");
+    Route::get('/paypal/success', [PaypalController::class,'success'])->name("paypal_success");
+    Route::get('/paypal/cancel', [PaypalController::class,'cancel'])->name("paypal_cancel");
